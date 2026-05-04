@@ -2,76 +2,84 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import Layout from "@/components/Layout";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 const Faculty = () => {
   const { t } = useLanguage();
 
   const teachers = [
     {
+      id: "tabrez",
       nameKey: "faculty.member.tabrez",
       titleKey: "faculty.principal.title",
       qualKey: "faculty.principal.qual",
-      img: "/princpal new.jpeg",
+      img: "/princpal new.webp",
       ring: "border-amber-300",
       stripe: "from-amber-500 to-yellow-600",
       glow: "from-amber-100 to-yellow-100",
       imgPos: "object-[50%_20%]",
     },
     {
+      id: "jabir",
       nameKey: "faculty.member.jabir",
       titleKey: "faculty.teacher.title",
       qualKey: "faculty.jabir.qual",
-      img: "/Hafiz Qari Jabir Hasan.jpeg",
+      img: "/Hafiz Qari Jabir Hasan.webp",
       ring: "border-cyan-300",
       stripe: "from-cyan-500 to-sky-600",
       glow: "from-cyan-100 to-sky-100",
       imgPos: "object-[50%_18%]",
     },
     {
+      id: "usman",
       nameKey: "faculty.member.usman",
       titleKey: "faculty.teacher.title",
       qualKey: "faculty.usman.qual",
-      img: "/Hafiz Qari Imran Khan.jpeg",
+      img: "/Hafiz Qari Imran Khan.webp",
       ring: "border-rose-300",
       stripe: "from-rose-500 to-pink-600",
       glow: "from-rose-100 to-pink-100",
       imgPos: "object-[50%_18%]",
     },
     {
+      id: "abdullah",
       nameKey: "faculty.member.abdullah",
       titleKey: "faculty.teacher.title",
       qualKey: "faculty.abdullah.qual",
-      img: "/Hafiz Abdullah Khan.jpeg",
+      img: "/Hafiz Abdullah Khan.webp",
       ring: "border-teal-300",
       stripe: "from-teal-500 to-emerald-600",
       glow: "from-teal-100 to-emerald-100",
       imgPos: "object-[50%_22%]",
     },
     {
+      id: "jamshed",
       nameKey: "faculty.member.jamshed",
       titleKey: "faculty.teacher.title",
       qualKey: "faculty.jamshed.qual",
-      img: "/Master Jamshed Khan.jpeg",
+      img: "/Master Jamshed Khan.webp",
       ring: "border-cyan-300",
       stripe: "from-cyan-500 to-sky-600",
       glow: "from-cyan-100 to-sky-100",
       imgPos: "object-[50%_18%]",
     },
     {
+      id: "nizam",
       nameKey: "faculty.member.nizam",
       titleKey: "faculty.teacher.title",
       qualKey: "faculty.nizamuddin.qual",
-      img: "/Master Md. Nizamuddin.jpeg",
+      img: "/Master Md. Nizamuddin.webp",
       ring: "border-amber-300",
       stripe: "from-amber-500 to-yellow-600",
       glow: "from-amber-100 to-yellow-100",
       imgPos: "object-[50%_20%]",
     },
     {
+      id: "pawan",
       nameKey: "faculty.member.pawan",
       titleKey: "faculty.teacher.title",
       qualKey: "faculty.pawan.qual",
-      img: "/Master Parvej Ahmad.jpeg",
+      img: "/Master Parvej Ahmad.webp",
       ring: "border-rose-300",
       stripe: "from-rose-500 to-pink-600",
       glow: "from-rose-100 to-pink-100",
@@ -84,7 +92,7 @@ const Faculty = () => {
       {/* ── HERO ── */}
       <section className="relative h-auto sm:h-[80vh] min-h-0 flex items-start sm:items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src="/faculty.jpeg" alt="Faculty" className="w-full h-full object-cover transition-transform duration-[8s] ease-out" />
+          <img src="/faculty.webp" alt="Faculty" className="w-full h-full object-cover transition-transform duration-[8s] ease-out" />
           <div className="absolute inset-0 bg-gradient-to-br from-teal-950/90 via-emerald-900/82 to-green-950/88" />
         </div>
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -145,6 +153,12 @@ const Faculty = () => {
                   <h3 className="font-heading text-base sm:text-lg font-bold text-foreground">{t(teacher.nameKey)}</h3>
                   <p className="text-teal-600 text-sm font-semibold mt-1">{t(teacher.titleKey)}</p>
                   <p className="text-muted-foreground text-xs sm:text-sm mt-1">{t(teacher.qualKey)}</p>
+                  <Link
+                    to={`/faculty/${teacher.id}`}
+                    className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-teal-700 hover:text-teal-900 bg-teal-50 hover:bg-teal-100 border border-teal-100 px-3 py-1.5 rounded-full transition-all duration-200"
+                  >
+                    View Profile <ArrowRight className="w-3 h-3" />
+                  </Link>
                 </div>
               </div>
             ))}

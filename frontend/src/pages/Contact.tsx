@@ -51,7 +51,7 @@ const Contact = () => {
       {/* ── HERO ── */}
       <section className="relative h-auto sm:h-[70vh] min-h-0 flex items-start sm:items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src="/WhatsApp Image 2026-04-13 at 10.32.40 AM (1).jpeg" alt="Contact" className="w-full h-full object-cover scale-110 transition-transform duration-[8s] ease-out" />
+          <img src="/WhatsApp Image 2026-04-13 at 10.32.40 AM (1).webp" alt="Contact" className="w-full h-full object-cover scale-110 transition-transform duration-[8s] ease-out" />
           <div className="absolute inset-0 bg-gradient-to-br from-teal-950/90 via-emerald-900/82 to-green-950/88" />
         </div>
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -113,9 +113,9 @@ const Contact = () => {
                       <SelectValue placeholder={t("contact.form.enquiry") || "Select Inquiry Type"} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Course">Course Inquiry</SelectItem>
-                      <SelectItem value="Donation">Donation</SelectItem>
-                      <SelectItem value="Other">Other</SelectItem>
+                      <SelectItem value="Course">{t("contact.enquiry.course")}</SelectItem>
+                      <SelectItem value="Donation">{t("contact.enquiry.donation")}</SelectItem>
+                      <SelectItem value="Other">{t("contact.enquiry.other")}</SelectItem>
                     </SelectContent>
                   </Select>
                   <Textarea

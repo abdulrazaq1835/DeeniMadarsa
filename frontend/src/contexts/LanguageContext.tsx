@@ -45,6 +45,16 @@ const translations: Record<Language, Record<string, string>> = {
     "course.alim.name": "Class 1 to 8 (Urdu & Hindi Medium)",
     "course.alim.desc": "Science, Math, English, Hindi, Urdu, Deeniyat, and Quran Education are taught in Urdu and Hindi medium following the school curriculum.",
     "course.alim.duration": "Duration: 8 Years",
+    // Course duration units
+    "course.unit.days": "Days",
+    "course.unit.weeks": "Weeks",
+    "course.unit.months": "Months",
+    "course.unit.years": "Years",
+    // Course level labels
+    "course.level.beginners": "Beginners",
+    "course.level.intermediate": "Intermediate",
+    "course.level.advanced": "Advanced",
+    "course.level.allages": "All Ages",
     // Faculty
     "faculty.title": "Our Faculty",
     "faculty.subtitle": "Experienced and Dedicated Teachers",
@@ -172,6 +182,8 @@ const translations: Record<Language, Record<string, string>> = {
     "home.news.quran.desc": "Join our yearly Quran recitation event open to all students and community members.",
     "home.news.eid.title": "Eid Holiday Schedule",
     "home.news.eid.desc": "Madarsa closed April 18-22 for Eid. Classes resume April 23.",
+    "home.news.readmore": "Read more",
+    "home.news.viewall": "View All Announcements",
     // Courses page
     "courses.readytojoin": "Ready to Begin Your Journey?",
     "courses.enrolltext": "Enroll today and take the first step towards comprehensive Islamic education.",
@@ -211,6 +223,17 @@ const translations: Record<Language, Record<string, string>> = {
     "donation.popup.msg2": "We will get back to you as soon as possible. Please be patient — May Allah reward you abundantly. 🤲",
     "donation.popup.btn": "Send on WhatsApp",
     "donation.popup.close": "Close this window",
+    // About gallery
+    "about.gallery.title": "Photo Gallery",
+    "about.gallery.subtitle": "A glimpse into life at Darul Uloom Junaidia Ajmalia",
+    // Footer
+    "footer.contactmap": "Contact & Map",
+    // Contact enquiry types
+    "contact.enquiry.course": "Course Inquiry",
+    "contact.enquiry.donation": "Donation",
+    "contact.enquiry.other": "Other",
+    // Donation CTA badge
+    "donation.cta.badge": "Support",
   },
 
   // ─────────────────────────────────────────────
@@ -251,6 +274,16 @@ const translations: Record<Language, Record<string, string>> = {
     "course.alim.name": "جماعت 1 تا 8 (اردو اور ہندی میڈیم)",
     "course.alim.desc": "سائنس، ریاضی، انگریزی، ہندی، اردو، دینیات اور قرآنی تعلیم اردو اور ہندی میڈیم میں اسکول نصاب کے مطابق پڑھائی جاتی ہے۔",
     "course.alim.duration": "مدت: 8 سال",
+    // Course duration units
+    "course.unit.days": "دن",
+    "course.unit.weeks": "ہفتے",
+    "course.unit.months": "ماہ",
+    "course.unit.years": "سال",
+    // Course level labels
+    "course.level.beginners": "ابتدائی",
+    "course.level.intermediate": "درمیانی",
+    "course.level.advanced": "اعلیٰ",
+    "course.level.allages": "تمام عمر",
     // Faculty
     "faculty.title": "ہمارے اساتذہ",
     "faculty.subtitle": "تجربہ کار اور مخلص اساتذہ",
@@ -378,6 +411,8 @@ const translations: Record<Language, Record<string, string>> = {
     "home.news.quran.desc": "تمام طلباء اور کمیونٹی کے لیے کھلے سالانہ قرآن تلاوت پروگرام میں شامل ہوں۔",
     "home.news.eid.title": "عید تعطیلات کا شیڈول",
     "home.news.eid.desc": "مدرسہ عید کی وجہ سے 18-22 اپریل بند رہے گا۔ کلاسیں 23 اپریل سے شروع ہوں گی۔",
+    "home.news.readmore": "مزید پڑھیں",
+    "home.news.viewall": "تمام اعلانات دیکھیں",
     // Courses page
     "courses.readytojoin": "اپنا سفر شروع کرنے کے لیے تیار ہیں؟",
     "courses.enrolltext": "آج ہی داخلہ لیں اور جامع اسلامی تعلیم کی طرف پہلا قدم اٹھائیں۔",
@@ -417,6 +452,17 @@ const translations: Record<Language, Record<string, string>> = {
     "donation.popup.msg2": "ہم جلد از جلد آپ سے رابطہ کریں گے۔ صبر فرمائیں — اللہ آپ کو جزائے خیر عطا فرمائے۔ 🤲",
     "donation.popup.btn": "واٹس ایپ پر بھیجیں",
     "donation.popup.close": "یہ ونڈو بند کریں",
+    // About gallery
+    "about.gallery.title": "فوٹو گیلری",
+    "about.gallery.subtitle": "دارالعلوم جنیدیہ اجمالیہ کی زندگی کی ایک جھلک",
+    // Footer
+    "footer.contactmap": "رابطہ اور نقشہ",
+    // Contact enquiry types
+    "contact.enquiry.course": "کورس کے بارے میں",
+    "contact.enquiry.donation": "عطیہ",
+    "contact.enquiry.other": "دیگر",
+    // Donation CTA badge
+    "donation.cta.badge": "تعاون",
   },
 
   // ─────────────────────────────────────────────
@@ -443,7 +489,7 @@ const translations: Record<Language, Record<string, string>> = {
     "hero.donate": "अभी दान करें",
     // About Preview
     "about.preview.title": "हमारे मदरसे के बारे में",
-    "about.preview.text": "हम केवल एक शैक्षणिक संस्थान नहीं हैं, बल्कि चरित्र, उद्देश्य और भविष्य के नेतृत्व के निर्माण की मजबूत नींव हैं। हज़रत सैयद अकमल अहमद अजमली (रहमतुल्लाह अलैह) द्वारा स्थापित हमारा मदरसा एक स्पष्ट दृष्टि के साथ शुरू किया गया: ऐसा शिक्षण वातावरण बनाना जहां इस्लामी मूल्य और आधुनिक ज्ञान सामंजस्य के साथ साथ चलें। हमारा मानना है कि सच्ची शिक्षा केवल पुस्तकों तक सीमित नहीं होती, बल्कि सोच, अनुशासन और जिम्मेदारी का निर्माण करती है। हमारा दृष्टिकोण कुरआनी शिक्षाओं, अकादमिक अध्ययन और व्यक्तित्व विकास को मिलाकर ऐसे व्यक्तियों का निर्माण करता है जो आत्मविश्वासी, नैतिक रूप से मजबूत और वास्तविक जीवन की चुनौतियों का सामना करने के लिए तैयार हों।",
+    "about.preview.text": "हम केवल एक शैक्षणिक संस्थान नहीं हैं, बल्कि चरित्र, उद्देश्य और भविष्य के नेतृत्व के निर्माण की मजबूत नींव हैं। हज़रत सैयद अकमल अहमद अजमली (रहमतुल्लाह अलैह) द्वारा स्थापित हमारा मदरसा एक स्पष्ट दृष्टि के साथ शुरू किया गया: ऐसा शिक्षण वातावरण बनाना जहां इस्लामी मूल्य और आधुनिक ज्ञान सामंजस्य के साथ साथ चलें। हमारा मानना है कि सच्ची शिक्षा केवल पुस्तकों तक सीमित नहीं होती, बल्कि सोच, अनुशासन और जिम्मेदारी को आकार देती है। हमारा दृष्टिकोण कुरआनी शिक्षाओं, अकादमिक शिक्षा और व्यक्तिगत विकास को मिलाकर ऐसे व्यक्तियों को तैयार करता है जो आत्मविश्वासी, नैतिक रूप से मजबूत और वास्तविक जीवन की चुनौतियों का सामना करने के लिए तैयार हों। यहाँ हर छात्र को न केवल ज्ञान प्राप्त करने बल्कि ईमानदारी, उद्देश्य और समाज में सकारात्मक योगदान के साथ जीवन जीने की प्रेरणा दी जाती है।दारी का निर्माण करती है। हमारा दृष्टिकोण कुरआनी शिक्षाओं, अकादमिक अध्ययन और व्यक्तित्व विकास को मिलाकर ऐसे व्यक्तियों का निर्माण करता है जो आत्मविश्वासी, नैतिक रूप से मजबूत और वास्तविक जीवन की चुनौतियों का सामना करने के लिए तैयार हों।",
     "about.preview.readmore": "और पढ़ें",
     // Courses
     "courses.title": "हमारे कोर्स",
@@ -457,6 +503,16 @@ const translations: Record<Language, Record<string, string>> = {
     "course.alim.name": "कक्षा 1 से 8 (उर्दू और हिंदी माध्यम)",
     "course.alim.desc": "विज्ञान, गणित, अंग्रेज़ी, हिंदी, उर्दू, दीनियात और कुरआन शिक्षा उर्दू और हिंदी माध्यम में स्कूल पाठ्यक्रम के अनुसार पढ़ाई जाती है।",
     "course.alim.duration": "अवधि: 8 वर्ष",
+    // Course duration units
+    "course.unit.days": "दिन",
+    "course.unit.weeks": "सप्ताह",
+    "course.unit.months": "महीने",
+    "course.unit.years": "वर्ष",
+    // Course level labels
+    "course.level.beginners": "शुरुआती",
+    "course.level.intermediate": "मध्यम",
+    "course.level.advanced": "उन्नत",
+    "course.level.allages": "सभी आयु",
     // Faculty
     "faculty.title": "हमारे शिक्षक",
     "faculty.subtitle": "अनुभवी और समर्पित शिक्षक",
@@ -584,6 +640,8 @@ const translations: Record<Language, Record<string, string>> = {
     "home.news.quran.desc": "सभी छात्रों और समुदाय के लिए आयोजित वार्षिक कुरान तिलावत कार्यक्रम में शामिल हों।",
     "home.news.eid.title": "ईद अवकाश समय-सारणी",
     "home.news.eid.desc": "मदरसा 18-22 अप्रैल तक ईद अवकाश के कारण बंद रहेगा। कक्षाएं 23 अप्रैल से शुरू होंगी।",
+    "home.news.readmore": "और पढ़ें",
+    "home.news.viewall": "सभी घोषणाएं देखें",
     // Courses page
     "courses.readytojoin": "क्या आप अपनी यात्रा शुरू करने के लिए तैयार हैं?",
     "courses.enrolltext": "आज ही प्रवेश लें और व्यापक इस्लामी शिक्षा की ओर पहला कदम बढ़ाएं।",
@@ -623,6 +681,17 @@ const translations: Record<Language, Record<string, string>> = {
     "donation.popup.msg2": "हम जल्द से जल्द आपसे संपर्क करेंगे। धैर्य रखें — अल्लाह आपको भरपूर पुरस्कार दे। 🤲",
     "donation.popup.btn": "WhatsApp पर भेजें",
     "donation.popup.close": "यह विंडो बंद करें",
+    // About gallery
+    "about.gallery.title": "फोटो गैलरी",
+    "about.gallery.subtitle": "दारुल उलूम जुनैदिया अजमतिया के जीवन की एक झलक",
+    // Footer
+    "footer.contactmap": "संपर्क और नक्शा",
+    // Contact enquiry types
+    "contact.enquiry.course": "कोर्स पूछताछ",
+    "contact.enquiry.donation": "दान",
+    "contact.enquiry.other": "अन्य",
+    // Donation CTA badge
+    "donation.cta.badge": "सहयोग",
   },
 };
 

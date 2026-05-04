@@ -9,6 +9,8 @@ const CourseSchema = new mongoose.Schema(
       trim: true,
       maxlength: [100, "Name cannot exceed 100 characters"],
     },
+    nameHi: { type: String, trim: true, default: "" },
+    nameUr: { type: String, trim: true, default: "" },
 
     description: {
       type: String,
@@ -16,6 +18,8 @@ const CourseSchema = new mongoose.Schema(
       trim: true,
       maxlength: [1000, "Description cannot exceed 1000 characters"],
     },
+    descriptionHi: { type: String, trim: true, default: "" },
+    descriptionUr: { type: String, trim: true, default: "" },
 
     duration: {
       value: {

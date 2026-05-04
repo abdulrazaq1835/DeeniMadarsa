@@ -82,7 +82,7 @@ const About = () => {
       {/* ── HERO ── */}
       <section className="relative h-auto sm:h-[80vh] min-h-0 flex items-start sm:items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src="/WhatsApp Image 2026-04-13 at 10.32.40 AM (1).jpeg" alt="About" className="w-full h-full object-cover scale-110 transition-transform duration-[8s] ease-out" />
+          <img src="/WhatsApp Image 2026-04-13 at 10.32.40 AM (1).webp" alt="About" className="w-full h-full object-cover scale-110 transition-transform duration-[8s] ease-out" />
           <div className="absolute inset-0 bg-gradient-to-br from-teal-950/90 via-emerald-900/82 to-green-950/88" />
         </div>
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -125,7 +125,7 @@ const About = () => {
                 <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-amber-400/20 to-teal-400/20 blur-xl scale-110" />
                 <div className="absolute inset-0 rounded-3xl bg-white/5 backdrop-blur-sm border border-white/15 rotate-6 shadow-xl" />
                 <div className="absolute inset-0 rounded-3xl overflow-hidden border border-white/25 -rotate-2 shadow-2xl">
-                  <img src="/building.jpeg" alt="Building" className="w-full h-full object-cover" />
+                  <img src="/building.webp" alt="Building" className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-teal-950/80 via-transparent to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-5">
                     <div className="flex items-center gap-2 mb-1">
@@ -173,23 +173,23 @@ const About = () => {
         <div className="w-full px-0">
           <div className="w-full border-y border-slate-200/80 bg-white/95 shadow-xl px-0 sm:px-2 py-8 sm:py-10">
             <div className="text-center mb-10 sm:mb-12 px-2 sm:px-4">
-              <h2 className="section-headline section-headline-slate font-heading text-3xl sm:text-4xl md:text-5xl font-bold">Photo Gallery</h2>
-              <p className="text-slate-600 text-sm sm:text-base mt-3">A glimpse into life at Darul Uloom Junaidia Ajmalia</p>
+              <h2 className="section-headline section-headline-slate font-heading text-3xl sm:text-4xl md:text-5xl font-bold">{t("about.gallery.title")}</h2>
+              <p className="text-slate-600 text-sm sm:text-base mt-3">{t("about.gallery.subtitle")}</p>
             </div>
 
             {/* Single auto-scroll row */}
             <div className="relative">
           <div className="flex gap-4 sm:gap-5 animate-[scroll-left_28s_linear_infinite] w-max px-2 sm:px-4">
             {[
-              { src: "/WhatsApp Image 2026-04-13 at 10.32.40 AM (1).jpeg", label: "Darul Uloom Campus" },
-              { src: "/WhatsApp Image 2026-04-13 at 10.32.40 AM.jpeg",     label: "Campus View" },
-              { src: "/WhatsApp Image 2026-04-13 at 10.32.41 AM.jpeg",     label: "Students Assembly" },
-              { src: "/building2.png",                                       label: "Main Building" },
+              { src: "/WhatsApp Image 2026-04-13 at 10.32.40 AM (1).webp", label: "Darul Uloom Campus" },
+              { src: "/WhatsApp Image 2026-04-13 at 10.32.40 AM.webp",     label: "Campus View" },
+              { src: "/WhatsApp Image 2026-04-13 at 10.32.41 AM.webp",     label: "Students Assembly" },
+              { src: "/building2.webp",                                      label: "Main Building" },
               // duplicate for seamless loop
-              { src: "/WhatsApp Image 2026-04-13 at 10.32.40 AM (1).jpeg", label: "Darul Uloom Campus" },
-              { src: "/WhatsApp Image 2026-04-13 at 10.32.40 AM.jpeg",     label: "Campus View" },
-              { src: "/WhatsApp Image 2026-04-13 at 10.32.41 AM.jpeg",     label: "Students Assembly" },
-              { src: "/building2.png",                                       label: "Main Building" },
+              { src: "/WhatsApp Image 2026-04-13 at 10.32.40 AM (1).webp", label: "Darul Uloom Campus" },
+              { src: "/WhatsApp Image 2026-04-13 at 10.32.40 AM.webp",     label: "Campus View" },
+              { src: "/WhatsApp Image 2026-04-13 at 10.32.41 AM.webp",     label: "Students Assembly" },
+              { src: "/building2.webp",                                      label: "Main Building" },
             ].map((img, i) => (
               <div key={i}
                 className="group relative shrink-0 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 bg-white border border-teal-100"

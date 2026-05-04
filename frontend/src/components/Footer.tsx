@@ -13,11 +13,11 @@ const Footer = () => {
           {/* Left: Brand + Follow Us */}
           <div>
             <div className="flex items-center gap-3 mb-3 sm:mb-4">
-              <img 
-  src="/schoollogo.png" 
-  alt="Logo" 
-  className="w-20 h-20 sm:w-24 sm:h-24 object-contain rounded-full bg-white/10 p-1 shrink-0" 
-/>
+              <img
+                src="/schoollogo.webp"
+                alt="Logo"
+                className="w-20 h-20 sm:w-24 sm:h-24 object-contain rounded-full bg-white/10 p-1 shrink-0"
+              />
               <h3 className="font-heading text-base sm:text-lg font-bold text-white leading-tight">
                 Darul Uloom Junaidia Ajmalia
               </h3>
@@ -29,7 +29,7 @@ const Footer = () => {
             <div className="flex flex-wrap gap-2 sm:gap-2.5">
               {[
                 { name: "Instagram", icon: <Instagram className="w-4 h-4" />, href: "#" },
-                { name: "YouTube", icon: <Youtube className="w-4 h-4" />, href: "https://youtube.com/@andaleebegulshanerisalat?si=4K_OiZrgUVUpQLdz" },
+                { name: "YouTube",   icon: <Youtube   className="w-4 h-4" />, href: "https://youtube.com/@andaleebegulshanerisalat?si=4K_OiZrgUVUpQLdz" },
               ].map((p) => (
                 <a key={p.name} href={p.href} target="_blank" rel="noopener noreferrer" aria-label={p.name}
                   className="p-2.5 bg-teal-700/50 border border-teal-600/50 rounded-xl text-teal-200 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
@@ -39,19 +39,21 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Middle: Quick Links */}
-          <div>
-            <h3 className="font-heading text-lg font-bold mb-4 text-white border-b border-teal-700/50 pb-2">{t("footer.quicklinks")}</h3>
+          {/* Middle: Quick Links — block centered, links left-aligned */}
+          <div className="flex flex-col items-center">
+            <h3 className="font-heading text-lg font-bold mb-4 text-white border-b border-teal-700/50 pb-2 w-full text-center">
+              {t("footer.quicklinks")}
+            </h3>
             <nav className="flex flex-col gap-2.5 text-sm text-teal-200">
               {[
-                { to: "/about", label: t("nav.about") },
-                { to: "/courses", label: t("nav.courses") },
-                { to: "/faculty", label: t("nav.faculty") },
+                { to: "/about",    label: t("nav.about") },
+                { to: "/courses",  label: t("nav.courses") },
+                { to: "/faculty",  label: t("nav.faculty") },
                 { to: "/donation", label: t("nav.donation") },
-                { to: "/contact", label: t("nav.contact") },
+                { to: "/contact",  label: t("nav.contact") },
               ].map(({ to, label }) => (
                 <Link key={to} to={to}
-                  className="flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all duration-200 text-left">
+                  className="flex items-center gap-2 hover:text-white hover:translate-x-1 transition-all duration-200">
                   <span className="w-1.5 h-1.5 rounded-full bg-teal-400 shrink-0" />
                   {label}
                 </Link>
@@ -61,7 +63,7 @@ const Footer = () => {
 
           {/* Right: Contact + Map */}
           <div>
-            <h3 className="font-heading text-base font-bold mb-3 sm:mb-4 text-white">Contact & Map</h3>
+            <h3 className="font-heading text-base font-bold mb-3 sm:mb-4 text-white">{t("footer.contactmap")}</h3>
             <div className="space-y-3 text-sm text-teal-100">
               <a href="tel:+919876543210" className="flex items-center gap-3 w-fit hover:text-white transition-colors group">
                 <span className="p-2 bg-teal-700/60 rounded-lg text-teal-300 group-hover:bg-teal-600 group-hover:text-white transition-all shrink-0">

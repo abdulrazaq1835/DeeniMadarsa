@@ -25,9 +25,9 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-primary shadow-lg">
-      <div className="container mx-auto px-4 flex items-center justify-between h-14">
+      <div className="container mx-auto px-4 flex items-center justify-between h-16 sm:h-[4.25rem]">
         <Link to="/" className="flex items-center gap-1.5 sm:gap-3 font-heading text-xs sm:text-lg font-bold text-primary-foreground tracking-wide leading-tight min-w-0">
-          <img src="/schoollogo.png" alt="Logo" className="w-10 h-10 sm:w-11 sm:h-11 object-contain shrink-0" />
+          <img src="/schoollogo.webp" alt="Logo" className="w-10 h-10 sm:w-11 sm:h-11 object-contain shrink-0" />
           <span className="truncate">Darul Uloom Junaidia Ajmalia</span>
         </Link>
 

@@ -12,6 +12,8 @@ import Faculty from "./pages/Faculty";
 import Donation from "./pages/Donation";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import Announcements from "./pages/Announcements";
+import TeacherDetail from "./pages/TeacherDetail";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminCourses from "./pages/AdminCourses";
 import AdminNews from "./pages/AdminNews";
@@ -34,8 +36,10 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/faculty" element={<Faculty />} />
+            <Route path="/faculty/:id" element={<TeacherDetail />} />
             <Route path="/donation" element={<Donation />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/announcements" element={<Announcements />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin/signup" element={<AdminSignup />} />
             <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />

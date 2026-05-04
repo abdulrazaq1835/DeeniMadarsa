@@ -10,9 +10,9 @@ import Layout from "@/components/Layout";
 import { CourseAPI, AnnouncementAPI } from "@/lib/api";
 
 const slides = [
-  { id: 1, img: "/WhatsApp Image 2026-04-13 at 10.32.40 AM (1).jpeg", badgeKey: "hero.slide1.badge", titleKey: "hero.welcome",      subtitleKey: "hero.subtitle",       descKey: "hero.slide1.desc" },
-  { id: 2, img: "/WhatsApp Image 2026-04-13 at 10.32.40 AM.jpeg",     badgeKey: "hero.slide2.badge", titleKey: "courses.title",     subtitleKey: "courses.subtitle",    descKey: "hero.slide2.desc" },
-  { id: 3, img: "/WhatsApp Image 2026-04-13 at 10.32.41 AM.jpeg",     badgeKey: "hero.slide3.badge", titleKey: "donation.subtitle", subtitleKey: "donation.message",    descKey: "hero.slide3.desc" },
+  { id: 1, img: "/WhatsApp Image 2026-04-13 at 10.32.40 AM (1).webp", badgeKey: "hero.slide1.badge", titleKey: "hero.welcome",      subtitleKey: "hero.subtitle",       descKey: "hero.slide1.desc" },
+  { id: 2, img: "/WhatsApp Image 2026-04-13 at 10.32.40 AM.webp",     badgeKey: "hero.slide2.badge", titleKey: "courses.title",     subtitleKey: "courses.subtitle",    descKey: "hero.slide2.desc" },
+  { id: 3, img: "/WhatsApp Image 2026-04-13 at 10.32.41 AM.webp",     badgeKey: "hero.slide3.badge", titleKey: "donation.subtitle", subtitleKey: "donation.message",    descKey: "hero.slide3.desc" },
 ];
 
 const stats = [
@@ -57,10 +57,11 @@ const StatCard = ({ icon: Icon, end, suffix, labelKey, color, active, delay }: {
 };
 
 const Index = () => {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const [current, setCurrent] = useState(0);
   const [courses, setCourses] = useState<any[]>([]);
   const [news, setNews] = useState<any[]>([]);
+  const [selectedNews, setSelectedNews] = useState<any | null>(null);
   const [aboutCurrent, setAboutCurrent] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const statsRef = useRef<HTMLDivElement>(null);
@@ -69,14 +70,14 @@ const Index = () => {
   const aboutSlides = [
     {
       id: 1,
-      img: "/schoollogo.png",
+      img: "/schoollogo.webp",
       alt: "Darul Uloom Junaidia Ajmalia Logo",
       imgClass: "w-[78%] h-[78%] object-contain",
       bgClass: "bg-gradient-to-br from-teal-50 to-teal-100",
     },
     {
       id: 2,
-      img: "/building.jpeg",
+      img: "/building.webp",
       alt: "Darul Uloom Junaidia Ajmalia Building",
       imgClass: "w-full h-full object-cover",
       bgClass: "bg-teal-100",
@@ -136,9 +137,75 @@ const Index = () => {
 
   const courseStyles = [
     { icon: BookOpen, color: "from-teal-500 to-teal-700" },
-    { icon: BookOpen, color: "from-emerald-500 to-emerald-700" },
-    { icon: GraduationCap, color: "from-amber-500 to-amber-700" },
+    { icon: BookOpen, color: "from-teal-500 to-teal-700" },
+    { icon: GraduationCap, color: "from-teal-500 to-teal-700" },
   ];
+
+  // Maps a course's category (stored in DB) to its i18n key prefix.
+  // Falls back to null so the component can render the raw API string.
+  const getCourseI18nKey = (category: string): string | null => {
+    const map: Record<string, string> = {
+      hifz: "hifz",
+      "hifz-ul-quran": "hifz",
+      hafiz: "hifz",
+      nazra: "nazra",
+      "nazra quran": "nazra",
+      naazra: "nazra",
+      alim: "alim",
+      "class 1-8": "alim",
+      "class 1 to 8": "alim",
+      school: "alim",
+      academic: "alim",
+    };
+    return map[category?.toLowerCase()?.trim()] ?? null;
+  };
+
+  const getTranslatedCourse = (course: any) => {
+    // Prefer DB-stored translations when language is hi or ur
+    if (lang === "hi" && course.nameHi) {
+      return { name: course.nameHi, description: course.descriptionHi || course.description };
+    }
+    if (lang === "ur" && course.nameUr) {
+      return { name: course.nameUr, description: course.descriptionUr || course.description };
+    }
+    // Fall back to static i18n key mapping
+    const key = getCourseI18nKey(course.category);
+    if (!key) return { name: course.name, description: course.description };
+    return {
+      name: t(`course.${key}.name`),
+      description: t(`course.${key}.desc`),
+    };
+  };
+
+  const getTranslatedUnit = (unit: string) => {
+    const unitMap: Record<string, string> = {
+      Days: t("course.unit.days"),
+      Weeks: t("course.unit.weeks"),
+      Months: t("course.unit.months"),
+      Years: t("course.unit.years"),
+    };
+    return unitMap[unit] ?? unit;
+  };
+
+  const getTranslatedLevel = (level: string) => {
+    const levelMap: Record<string, string> = {
+      Beginners: t("course.level.beginners"),
+      Intermediate: t("course.level.intermediate"),
+      Advanced: t("course.level.advanced"),
+      "All Ages": t("course.level.allages"),
+    };
+    return levelMap[level] ?? level;
+  };
+
+  const getTranslatedNews = (item: any) => {
+    if (lang === "hi" && item.titleHi) {
+      return { title: item.titleHi, description: item.descriptionHi || item.description };
+    }
+    if (lang === "ur" && item.titleUr) {
+      return { title: item.titleUr, description: item.descriptionUr || item.description };
+    }
+    return { title: item.title, description: item.description };
+  };
 
   const newsColors = [
     "from-teal-500 to-emerald-600",
@@ -151,7 +218,7 @@ const Index = () => {
       nameKey: "faculty.member.manager",
       titleKey: "faculty.manager.title",
       qualKey: "faculty.manager.qual",
-      img: "/manager.jpeg",
+      img: "/manager.webp",
       ring: "border-teal-300",
       stripe: "from-teal-500 to-emerald-600",
       glow: "from-teal-100 to-emerald-100",
@@ -161,7 +228,7 @@ const Index = () => {
       nameKey: "faculty.member.tabrez",
       titleKey: "faculty.principal.title",
       qualKey: "faculty.principal.qual",
-      img: "/princpal new.jpeg",
+      img: "/princpal new.webp",
       ring: "border-amber-300",
       stripe: "from-amber-500 to-yellow-600",
       glow: "from-amber-100 to-yellow-100",
@@ -314,12 +381,13 @@ const Index = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 max-w-5xl mx-auto">
             {courses.slice(0, 3).map((c, i) => {
               const style = courseStyles[i % courseStyles.length];
+              const translated = getTranslatedCourse(c);
               return (
               <Link to="/courses" key={c._id || i}
                 className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-teal-100/60 flex flex-col h-full">
                 {c.image && c.image.url && (
                   <div className="w-full h-48 sm:h-56 overflow-hidden">
-                    <img src={c.image.url} alt={c.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <img src={c.image.url} alt={translated.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                   </div>
                 )}
                 <div className="p-5 sm:p-7 flex flex-col flex-1">
@@ -328,11 +396,11 @@ const Index = () => {
                       <style.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                     </div>
                   )}
-                  <h3 className="font-heading text-lg sm:text-xl font-bold text-foreground mb-2">{c.name}</h3>
-                  <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed mb-4 line-clamp-3">{c.description}</p>
+                  <h3 className="font-heading text-lg sm:text-xl font-bold text-foreground mb-2">{translated.name}</h3>
+                  <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed mb-4 line-clamp-3">{translated.description}</p>
                   <div className="flex items-center justify-between mt-auto">
                     <span className="text-xs font-semibold text-amber-600 bg-amber-50 px-3 py-1 rounded-full border border-amber-100">
-                      {c.duration?.value} {c.duration?.unit}
+                      {c.duration?.value} {getTranslatedUnit(c.duration?.unit)}
                     </span>
                     <ArrowRight className="w-4 h-4 text-teal-400 group-hover:text-teal-600 group-hover:translate-x-1 transition-all" />
                   </div>
@@ -360,42 +428,67 @@ const Index = () => {
               {t("home.news.subheading")}
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 max-w-5xl mx-auto">
-            {/* Pinned wide card */}
-            {news.length > 0 && (
-              <div className="md:col-span-2 group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl border border-teal-100/60 hover:-translate-y-1 transition-all duration-300">
-                <div className={`h-1.5 bg-gradient-to-r ${newsColors[0]}`} />
-                <div className="p-5 sm:p-7">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="text-xs text-muted-foreground">{new Date(news[0].createdAt).toLocaleDateString()}</span>
-                  </div>
-                  <h3 className="font-heading text-lg sm:text-xl font-bold text-foreground mb-3">{news[0].title}</h3>
-                  <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed mb-4 line-clamp-3">{news[0].description}</p>
-                  <Link to="/contact" className="inline-flex items-center gap-2 text-teal-700 font-semibold text-sm hover:gap-3 transition-all duration-200">
-                    {t("hero.apply")} <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </div>
-            )}
-            {/* Side cards */}
-            <div className="flex flex-col gap-5 sm:gap-6">
-              {news.slice(1, 4).map((item, i) => {
-                const color = newsColors[(i + 1) % newsColors.length];
-                return (
-                <div key={item._id || i} className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl border border-teal-100/60 hover:-translate-y-1 transition-all duration-300">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 max-w-5xl mx-auto">
+            {news.slice(0, 6).map((item, i) => {
+              const color = newsColors[i % newsColors.length];
+              const tn = getTranslatedNews(item);
+              return (
+                <div key={item._id || i} className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl border border-teal-100/60 hover:-translate-y-1 transition-all duration-300 flex flex-col">
                   <div className={`h-1.5 bg-gradient-to-r ${color}`} />
-                  <div className="p-4 sm:p-5">
+                  <div className="p-4 sm:p-5 flex flex-col flex-1">
                     <div className="flex items-center gap-2 mb-2">
                       <span className="text-xs font-bold text-teal-700 bg-teal-50 px-2 py-0.5 rounded-full">📢 {t("home.news.notice")}</span>
                       <span className="text-[10px] text-muted-foreground">{new Date(item.createdAt).toLocaleDateString()}</span>
                     </div>
-                    <h4 className="font-heading text-sm sm:text-base font-bold text-foreground mb-1">{item.title}</h4>
-                    <p className="text-muted-foreground text-xs leading-relaxed line-clamp-2">{item.description}</p>
+                    <h4 className="font-heading text-sm sm:text-base font-bold text-foreground mb-1">{tn.title}</h4>
+                    <p className="text-muted-foreground text-xs leading-relaxed line-clamp-3 flex-1">{tn.description}</p>
+                    {tn.description?.length > 120 && (
+                      <button
+                        onClick={() => setSelectedNews(item)}
+                        className="mt-2 text-xs font-semibold text-teal-600 hover:text-teal-800 transition-colors self-start"
+                      >
+                        {t("home.news.readmore")} →
+                      </button>
+                    )}
                   </div>
                 </div>
-              )})}
-            </div>
+              );
+            })}
           </div>
+          <div className="text-center mt-8 sm:mt-10">
+            <Link to="/announcements" className="inline-flex items-center gap-2 text-teal-700 font-semibold hover:text-teal-600 transition-colors border-2 border-teal-600 hover:bg-teal-50 rounded-full px-8 py-2.5 text-sm">
+              {t("home.news.viewall")} →
+            </Link>
+          </div>
+
+          {/* News detail modal */}
+          {selectedNews && (
+            <div
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+              onClick={() => setSelectedNews(null)}
+            >
+              <div
+                className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 sm:p-8 relative"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  onClick={() => setSelectedNews(null)}
+                  className="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 transition-colors"
+                  aria-label="Close"
+                >
+                  ✕
+                </button>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-xs font-bold text-teal-700 bg-teal-50 px-2 py-0.5 rounded-full">📢 {t("home.news.notice")}</span>
+                  <span className="text-xs text-muted-foreground">
+                    {selectedNews.createdAt ? new Date(selectedNews.createdAt).toLocaleDateString() : ""}
+                  </span>
+                </div>
+                <h3 className="font-heading text-lg sm:text-xl font-bold text-foreground mb-4">{getTranslatedNews(selectedNews).title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-line">{getTranslatedNews(selectedNews).description}</p>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -417,7 +510,7 @@ const Index = () => {
                 <div className="relative">
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-amber-400/30 to-teal-400/20 blur-xl scale-110" />
                   <div className="relative w-32 h-40 sm:w-48 sm:h-56 rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl">
-                    <img src="/founder.jpeg" alt="Founder" className="w-full h-full object-cover object-top" />
+                    <img src="/founder.webp" alt="Founder" className="w-full h-full object-cover object-top" />
                     <div className="absolute inset-0 bg-gradient-to-t from-teal-950/60 to-transparent" />
                   </div>
                   <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-max bg-amber-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg text-center whitespace-nowrap">
@@ -489,7 +582,7 @@ const Index = () => {
               <div className="text-center lg:text-left lg:max-w-2xl">
                 <div className="flex items-center justify-center lg:justify-start gap-2 mb-3">
                 <Heart className="w-4 h-4 text-amber-300" />
-                <span className="text-amber-200 text-xs font-bold uppercase tracking-widest">Support</span>
+                <span className="text-amber-200 text-xs font-bold uppercase tracking-widest">{t("donation.cta.badge")}</span>
               </div>
                 <h2 className="font-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2 sm:mb-3 lg:mb-4 leading-tight">
                   {t("donation.subtitle")}

@@ -32,7 +32,7 @@ const AdminUsers = () => {
         {users.map((user) => (
           <article key={user.id} className="rounded-xl border border-slate-200 bg-white p-3 shadow-sm sm:p-4">
             <div className="mb-2.5 flex items-center gap-3 sm:mb-3">
-              <img src="/schoollogo.png" alt="User" className="h-10 w-10 rounded-full border border-teal-100 bg-teal-50 p-1 object-contain" />
+              <img src="/schoollogo.webp" alt="User" className="h-10 w-10 rounded-full border border-teal-100 bg-teal-50 p-1 object-contain" />
               <div>
                 <h3 className="font-bold text-teal-900">{user.name}</h3>
                 <p className="text-xs text-slate-500">{user.role}</p>

@@ -64,7 +64,7 @@ const Donation = () => {
       {/* HERO */}
       <section className="relative h-auto sm:h-[80vh] min-h-0 flex items-start sm:items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src="/WhatsApp Image 2026-04-13 at 10.32.41 AM.jpeg" alt="Donation" className="w-full h-full object-cover scale-110 transition-transform duration-[8s] ease-out" />
+          <img src="/WhatsApp Image 2026-04-13 at 10.32.41 AM.webp" alt="Donation" className="w-full h-full object-cover scale-110 transition-transform duration-[8s] ease-out" />
           <div className="absolute inset-0 bg-gradient-to-br from-teal-950/90 via-emerald-900/82 to-green-950/88" />
         </div>
         <div className="absolute inset-0 overflow-hidden pointer-events-none">

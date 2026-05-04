@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 
 const Courses = () => {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
 
   const [courses, setCourses] = useState<any[]>([]);
 
@@ -25,9 +25,64 @@ const Courses = () => {
 
   const courseStyles = [
     { icon: BookOpen, color: "from-teal-500 to-teal-700" },
-    { icon: BookOpen, color: "from-emerald-500 to-emerald-700" },
-    { icon: GraduationCap, color: "from-yellow-600 to-yellow-700" },
+    { icon: BookOpen, color: "from-teal-500 to-teal-700" },
+    { icon: GraduationCap, color: "from-teal-500 to-teal-700" },
   ];
+
+  // Maps a course's category (stored in DB) to its i18n key prefix.
+  const getCourseI18nKey = (category: string): string | null => {
+    const map: Record<string, string> = {
+      hifz: "hifz",
+      "hifz-ul-quran": "hifz",
+      hafiz: "hifz",
+      nazra: "nazra",
+      "nazra quran": "nazra",
+      naazra: "nazra",
+      alim: "alim",
+      "class 1-8": "alim",
+      "class 1 to 8": "alim",
+      school: "alim",
+      academic: "alim",
+    };
+    return map[category?.toLowerCase()?.trim()] ?? null;
+  };
+
+  const getTranslatedCourse = (course: any) => {
+    // Prefer DB-stored translations when language is hi or ur
+    if (lang === "hi" && course.nameHi) {
+      return { name: course.nameHi, description: course.descriptionHi || course.description };
+    }
+    if (lang === "ur" && course.nameUr) {
+      return { name: course.nameUr, description: course.descriptionUr || course.description };
+    }
+    // Fall back to static i18n key mapping
+    const key = getCourseI18nKey(course.category);
+    if (!key) return { name: course.name, description: course.description };
+    return {
+      name: t(`course.${key}.name`),
+      description: t(`course.${key}.desc`),
+    };
+  };
+
+  const getTranslatedUnit = (unit: string) => {
+    const unitMap: Record<string, string> = {
+      Days: t("course.unit.days"),
+      Weeks: t("course.unit.weeks"),
+      Months: t("course.unit.months"),
+      Years: t("course.unit.years"),
+    };
+    return unitMap[unit] ?? unit;
+  };
+
+  const getTranslatedLevel = (level: string) => {
+    const levelMap: Record<string, string> = {
+      Beginners: t("course.level.beginners"),
+      Intermediate: t("course.level.intermediate"),
+      Advanced: t("course.level.advanced"),
+      "All Ages": t("course.level.allages"),
+    };
+    return levelMap[level] ?? level;
+  };
 
   return (
     <Layout>
@@ -35,7 +90,7 @@ const Courses = () => {
       {/* ── HERO ── */}
       <section className="relative h-auto sm:h-[80vh] min-h-0 flex items-start sm:items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src="/WhatsApp Image 2026-04-13 at 10.32.40 AM.jpeg" alt="Courses" className="w-full h-full object-cover scale-110 transition-transform duration-[8s] ease-out" />
+          <img src="/WhatsApp Image 2026-04-13 at 10.32.40 AM.webp" alt="Courses" className="w-full h-full object-cover scale-110 transition-transform duration-[8s] ease-out" />
           <div className="absolute inset-0 bg-gradient-to-br from-teal-950/90 via-emerald-900/82 to-green-950/88" />
         </div>
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -84,16 +139,17 @@ const Courses = () => {
             <p className="text-muted-foreground text-sm sm:text-base">{t("courses.subtitle")}</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 lg:gap-5 max-w-5xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-4 lg:gap-5 max-w-5xl mx-auto">
             {courses.map((course, i) => {
               const style = courseStyles[i % courseStyles.length];
+              const translated = getTranslatedCourse(course);
               return (
               <div key={course._id || i}
-                className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl border border-teal-100/60 hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
+                className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl border border-teal-100/60 hover:-translate-y-1 transition-all duration-300 flex flex-col w-full md:w-[calc(33.333%-1rem)] lg:w-[calc(33.333%-1.25rem)]">
 
                 {course.image && course.image.url && (
                   <div className="w-full aspect-[16/9] overflow-hidden">
-                    <img src={course.image.url} alt={course.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <img src={course.image.url} alt={translated.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                   </div>
                 )}
 
@@ -103,15 +159,14 @@ const Courses = () => {
                       <style.icon className="w-5 h-5 sm:w-5 sm:h-5 text-white" />
                     </div>
                   )}
-                  <h3 className="font-heading text-sm sm:text-base lg:text-[17px] font-bold text-foreground mb-1.5 sm:mb-2">{course.name}</h3>
-                  <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed mb-2.5 sm:mb-3 line-clamp-3">{course.description}</p>
+                  <h3 className="font-heading text-sm sm:text-base lg:text-[17px] font-bold text-foreground mb-1.5 sm:mb-2">{translated.name}</h3>
+                  <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed mb-2.5 sm:mb-3 line-clamp-3">{translated.description}</p>
 
                   <div className="mt-auto">
-                    {/* Meta row */}
                     <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-muted-foreground mb-2.5 sm:mb-3">
-                      <span className="flex items-center gap-1"><Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-teal-500" />{course.duration?.value} {course.duration?.unit}</span>
+                      <span className="flex items-center gap-1"><Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-teal-500" />{course.duration?.value} {getTranslatedUnit(course.duration?.unit)}</span>
                       <span className="flex items-center gap-1"><Users className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-teal-500" />{course.totalStudents || 0}+</span>
-                      <span className="flex items-center gap-1"><Star className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-yellow-500" />{course.level || "All Ages"}</span>
+                      <span className="flex items-center gap-1"><Star className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-yellow-500" />{getTranslatedLevel(course.level || "All Ages")}</span>
                     </div>
 
                     <Button asChild size="sm"

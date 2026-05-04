@@ -23,15 +23,25 @@ type NewsItem = {
   isActive?: boolean;
 };
 
+// Skeleton row for loading state
+const SkeletonRow = () => (
+  <div className="rounded-lg border border-slate-100 bg-slate-50 p-2.5 animate-pulse">
+    <div className="h-3.5 w-3/4 rounded bg-slate-200 mb-1.5" />
+    <div className="h-2.5 w-1/2 rounded bg-slate-200 mb-1" />
+    <div className="h-2.5 w-1/3 rounded bg-slate-200" />
+  </div>
+);
 
 const AdminDashboard = () => {
   const minVisibleRows = 3;
   const [counts, setCounts] = useState<CountData>({ courses: 0, news: 0 });
   const [recentCourses, setRecentCourses] = useState<CourseItem[]>([]);
   const [activeNews, setActiveNews] = useState<NewsItem[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const load = async () => {
+      setLoading(true);
       try {
         const [cRes, nRes] = await Promise.all([
           CourseAPI.getAllAdmin(),
@@ -55,6 +65,8 @@ const AdminDashboard = () => {
         setActiveNews(news.filter((item) => item.isActive !== false).slice(0, 5));
       } catch (err) {
         console.error("Error loading dashboard data:", err);
+      } finally {
+        setLoading(false);
       }
     };
     void load();
@@ -65,11 +77,19 @@ const AdminDashboard = () => {
       <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-3">
         <div className="rounded-xl border border-teal-100 bg-teal-50 p-3 sm:p-4">
           <p className="text-sm text-teal-700">Courses</p>
-          <p className="text-2xl font-bold text-teal-900 sm:text-3xl">{counts.courses}</p>
+          {loading ? (
+            <div className="h-8 w-12 rounded bg-teal-200 animate-pulse mt-1" />
+          ) : (
+            <p className="text-2xl font-bold text-teal-900 sm:text-3xl">{counts.courses}</p>
+          )}
         </div>
         <div className="rounded-xl border border-amber-100 bg-amber-50 p-3 sm:p-4">
           <p className="text-sm text-amber-700">Announcements</p>
-          <p className="text-2xl font-bold text-amber-900 sm:text-3xl">{counts.news}</p>
+          {loading ? (
+            <div className="h-8 w-12 rounded bg-amber-200 animate-pulse mt-1" />
+          ) : (
+            <p className="text-2xl font-bold text-amber-900 sm:text-3xl">{counts.news}</p>
+          )}
         </div>
       </div>
 
@@ -80,7 +100,11 @@ const AdminDashboard = () => {
             <span className="rounded-full bg-teal-50 px-2 py-1 text-xs font-semibold text-teal-700">Latest</span>
           </div>
 
-          {recentCourses.length === 0 ? (
+          {loading ? (
+            <div className="space-y-2">
+              {Array.from({ length: minVisibleRows }).map((_, i) => <SkeletonRow key={i} />)}
+            </div>
+          ) : recentCourses.length === 0 ? (
             <p className="text-sm text-slate-500">No course added yet.</p>
           ) : (
             <div className="space-y-2">
@@ -110,7 +134,11 @@ const AdminDashboard = () => {
             <span className="rounded-full bg-amber-50 px-2 py-1 text-xs font-semibold text-amber-700">Active</span>
           </div>
 
-          {activeNews.length === 0 ? (
+          {loading ? (
+            <div className="space-y-2">
+              {Array.from({ length: minVisibleRows }).map((_, i) => <SkeletonRow key={i} />)}
+            </div>
+          ) : activeNews.length === 0 ? (
             <p className="text-sm text-slate-500">No active announcement found.</p>
           ) : (
             <div className="space-y-2">
