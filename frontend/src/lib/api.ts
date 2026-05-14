@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: 'https://deeni-madarsa-5yb8.vercel.app/api',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -28,7 +28,6 @@ export const CourseAPI = {
   getAllAdmin: () => api.get('/courses/all'),
   getById: (id: string) => api.get(`/courses/${id}`),
   create: (data: FormData | any) => {
-    // If it's FormData, let axios handle the Content-Type
     let headers = {};
     if (data instanceof FormData) {
       headers = { 'Content-Type': 'multipart/form-data' };
